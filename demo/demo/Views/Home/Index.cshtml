@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Certification</th>
+        <th>Expires</th>
+    </tr>
+    @foreach (var certs in Model)
+    {
+        DateTime dateValue;
+        DateTime today = DateTime.Today;
+        DateTime.TryParse(certs.ExpDate, out dateValue);
+        var daysLeft = dateValue.Subtract(DateTime.Today).Days;
+        if (daysLeft <= 0)
+        {
+            <tr>
+                <td>@certs.LastName, @certs.FirstName</td>
+                <td>@certs.CertName</td>
+                <td bgcolor=#ff4444>@dateValue.Month/@dateValue.Day/@dateValue.Year</td>
+            </tr>
+
+        }
+        else if (daysLeft <= 15)
+        {
+            <tr>
+                <td>@certs.LastName, @certs.FirstName</td>
+                <td>@certs.CertName</td>
+                <td bgcolor=#ffa500>@dateValue.Month/@dateValue.Day/@dateValue.Year</td>
+            </tr>
+        }
+        else if (daysLeft <= 30)
+        {
+            <tr>
+                <td>@certs.LastName, @certs.FirstName</td>
+                <td>@certs.CertName</td>
+                <td bgcolor=#ffff00>@dateValue.Month/@dateValue.Day/@dateValue.Year</td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td>@certs.LastName, @certs.FirstName</td>
+                <td>@certs.CertName</td>
+                <td bgcolor=#00ff66>@dateValue.Month/@dateValue.Day/@dateValue.Year</td>
+            </tr>
+        }
+    }
+</table>
